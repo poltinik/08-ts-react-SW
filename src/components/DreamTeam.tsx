@@ -1,6 +1,7 @@
 import { friends } from '../utils/constants'
 import Friend from './Friend'
 
+
 const DreamTeam = () => {
     return (
         <section className="ml-1 float-right w-1/2 border border-base-color rounded-b-3xl grid-cols-3 grid gap-0.5">

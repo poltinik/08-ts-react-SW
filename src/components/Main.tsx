@@ -1,13 +1,11 @@
-import React, { useContext, useState } from 'react'
+import { useContext} from 'react'
 import Home from './Home'
 import { navItems } from '../utils/constants'
 import AboutMe from './AboutMe'
-import StarWars from './StarWars'
 import Contact from './Contact'
+import StarWars from './StarWars'
 import { SWContext } from '../utils/context'
-interface SWContextType {
-    page: string;
-  }
+
 
 const Main = () => {
   const {page} = useContext(SWContext);

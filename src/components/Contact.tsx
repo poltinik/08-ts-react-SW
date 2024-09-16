@@ -1,16 +1,13 @@
-import React, { useEffect, useState } from 'react'
-import { base_url, period_month } from '../utils/constants'
-interface Planet {
-    name: string;
-  }
+import { useEffect, useState } from 'react';
+import { base_url, period_month } from '../utils/constants';
 
 const Contact = () => {
   const [planets, setPlanets] = useState(['wait...']);
 
   async function fillPlanets() {
     const response = await fetch(`${base_url}/v1/planets`);
-    const data = await response.json();
-    const planets = data.map((item: Planet )=> item.name);
+    const data: ({name: string})[] = await response.json();
+    const planets = data.map(item => item.name);
     setPlanets(planets);
     localStorage.setItem('planets', JSON.stringify({
       payload: planets,
@@ -19,15 +16,12 @@ const Contact = () => {
   }
 
   useEffect(() => {
-    const storedPlanets = localStorage.getItem('planets');
-    if (storedPlanets) {
-      const parsedPlanets = JSON.parse(storedPlanets);
-      if ((Date.now() - parsedPlanets.time) < period_month) {
-        setPlanets(parsedPlanets.payload);
-        return;
-      }
+    const planets = JSON.parse(localStorage.getItem('planets')!);
+    if (planets && ((Date.now() - planets.time) < period_month)) {
+      setPlanets(planets.payload);
+    } else {
+      fillPlanets();
     }
-    fillPlanets();
   }, [])
 
   return (

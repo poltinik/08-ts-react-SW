@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { base_url, period_month } from '../utils/constants'
+import { HeroInfo } from '../utils/types';
 
 const AboutMe = () => {
-  const [hero, setHero] = useState();
+  const [hero, setHero] = useState<HeroInfo>();
 
   useEffect(() => {
-    const hero = JSON.parse(localStorage.getItem('hero'));
+    const hero = JSON.parse(localStorage.getItem('hero')!);
     if (hero && ((Date.now() - hero.time) < period_month)) {
       setHero(hero.payload)
     }
@@ -36,7 +37,7 @@ const AboutMe = () => {
     <>
       {(!!hero) &&
         <div className='text-3xl leading-loose text-justify tracking-widest ml-8'>
-          {Object.keys(hero).map(key => <p key={key}><span className='text-[1.5em] capitalize'>{key.replace('_', ' ')}:</span> {hero[key]}</p>)}
+          {Object.keys(hero).map(key => <p key={key}><span className='text-[1.5em] capitalize'>{key.replace('_', ' ')}:</span> {hero[key as keyof HeroInfo]}</p>)}
         </div>
       }
     </>

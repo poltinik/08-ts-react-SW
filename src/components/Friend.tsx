@@ -1,8 +1,8 @@
-
 interface FriendProps {
-    picture: string;
-    pos: number;
-  }
+    picture: string,
+    pos: number
+}
+
 const Friend = ({ picture, pos }: FriendProps) => {
     let styles;
     if (pos === 7) {
